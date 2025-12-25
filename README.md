@@ -1,5 +1,6 @@
 # barelog
 [![Cargo CI](https://github.com/s0uthview/barelog/actions/workflows/cargo.yml/badge.svg)](https://github.com/s0uthview/barelog/actions/workflows/cargo.yml)
+
 A simple logger designed to work in `no-std` environments, such as embedded systems and in OS development.
 
 Features:
