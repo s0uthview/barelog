@@ -1,0 +1,13 @@
+[package]
+name = "barelog"
+version = "0.1.0"
+edition = "2024"
+description = "A simple logger for no-std environments."
+authors = ["Saoirse Josetta <saoirse@fawn.rest>"]
+
+[dependencies]
+spin = "0.10.0"
+
+[features]
+alloc = []
+color = []
