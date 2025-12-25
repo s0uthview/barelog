@@ -63,10 +63,9 @@ macro_rules! log {
         $crate::logger::log(
             $level,
             core::format_args!(
-                "[{}::{}] [{}] {}",
+                "[{}::{}] {}",
                 core::module_path!(),
                 core::line!(),
-                $level.as_str(),
                 core::format_args!($($arg)*)
             )
         );
