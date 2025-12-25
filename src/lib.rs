@@ -10,10 +10,12 @@
 //! ```
 #![no_std]
 
+pub mod error;
 pub mod level;
 pub mod logger;
 pub mod subscriber;
 
+pub use error::BarelogError;
 pub use level::Level;
 pub use logger::{get_max_level, log, set_max_level};
 

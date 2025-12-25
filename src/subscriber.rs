@@ -46,8 +46,14 @@ static SUBSCRIBERS: Mutex<Vec<&'static dyn Subscriber>> = Mutex::new(Vec::new())
 /// # Arguments
 /// * `subscriber` - The log consumer to receive all log events.
 #[cfg(not(feature = "alloc"))]
-pub fn set_subscriber(subscriber: &'static dyn Subscriber) {
+pub fn set_subscriber(
+    subscriber: &'static dyn Subscriber,
+) -> Result<(), crate::error::BarelogError> {
+    if LOGGER.get().is_some() {
+        return Err(crate::error::BarelogError::Other("subscriber already set"));
+    }
     LOGGER.call_once(|| subscriber);
+    Ok(())
 }
 
 /// Adds a subscriber.
@@ -58,9 +64,13 @@ pub fn set_subscriber(subscriber: &'static dyn Subscriber) {
 /// # Arguments
 /// * `subscriber` - The log consumer to add.
 #[cfg(feature = "alloc")]
-pub fn add_subscriber(subscriber: &'static dyn Subscriber) {
+pub fn add_subscriber(
+    subscriber: &'static dyn Subscriber,
+) -> Result<(), crate::error::BarelogError> {
     let mut subs = SUBSCRIBERS.lock();
+    // If you want to enforce a limit, add logic here and return SubscriberListFull if exceeded.
     subs.push(subscriber);
+    Ok(())
 }
 
 /// Returns the registered subscriber.
